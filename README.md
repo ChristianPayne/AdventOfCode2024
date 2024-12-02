@@ -5,4 +5,4 @@
 Add a new `bin` folder inside of the `src` folder and put the `part1.rs`, `part2.rs` and `input.txt` files in that.
 ## Running a day
 While inside of a day, run `cargo test` to execute all of the tests in that workspace.  
-`cargo test --bin part1` will run just a certain day's tests.
+`cargo test --bin part1` will run just a certain part's tests.

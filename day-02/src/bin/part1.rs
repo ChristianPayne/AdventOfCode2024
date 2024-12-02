@@ -1,6 +1,12 @@
-fn main() {}
+fn main() {
+    let input = include_str!("./input.txt");
+    let output = part_1(input);
+    dbg!(output);
+}
 
-fn part_1() {}
+fn part_1(input: &str) -> i32 {
+    todo!()
+}
 
 #[cfg(test)]
 mod tests {
@@ -8,7 +14,7 @@ mod tests {
 
     #[test]
     fn part_1_sample() {
-        let result = part_1();
-        // assert_eq!(result, ());
+        let result = part_1("");
+        assert_eq!(result, 0);
     }
 }
