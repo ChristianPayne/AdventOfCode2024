@@ -1,3 +1,5 @@
+use std::iter::zip;
+
 fn main() {
     let input = include_str!("./input.txt");
     let output = part1(input);
@@ -5,7 +7,23 @@ fn main() {
 }
 
 fn part1(input: &str) -> i32 {
-    todo!()
+    let mut lists: (Vec<i32>, Vec<i32>) = (vec![], vec![]);
+    for row in input.split('\n') {
+        for (i, num) in row.split("   ").enumerate() {
+            match i {
+                0 => lists.0.push(num.parse::<i32>().unwrap()),
+                1 => lists.1.push(num.parse::<i32>().unwrap()),
+                _ => panic!("Failed parsing!"),
+            }
+        }
+    }
+
+    lists.0.sort();
+    lists.1.sort();
+
+    zip(lists.0, lists.1)
+        .map(|(a, b)| (a - b).abs())
+        .sum::<i32>()
 }
 
 #[cfg(test)]
