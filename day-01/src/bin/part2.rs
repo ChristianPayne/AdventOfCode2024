@@ -1,10 +1,10 @@
 fn main() {
     let input = include_str!("./input.txt");
-    let output = part2(input);
+    let output = part_2(input);
     dbg!(output);
 }
 
-fn part2(input: &str) -> i32 {
+fn part_2(input: &str) -> i32 {
     let mut lists: (Vec<i32>, Vec<i32>) = (vec![], vec![]);
     for row in input.split('\n') {
         for (i, num) in row.split("   ").enumerate() {
@@ -35,7 +35,7 @@ mod tests {
 
     #[test]
     fn part_2_sample() {
-        let result = part2(
+        let result = part_2(
             "3   4
 4   3
 2   5
