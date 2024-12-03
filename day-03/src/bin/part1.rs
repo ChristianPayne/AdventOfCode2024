@@ -1,11 +1,10 @@
 use nom::{
     branch::alt,
-    bytes::complete::{tag, take_while, take_while1},
+    bytes::complete::tag,
     character::complete::{self, anychar},
-    combinator::{map, map_res, opt},
-    error,
+    combinator::map,
     multi::many0,
-    sequence::{preceded, separated_pair, tuple},
+    sequence::{separated_pair, tuple},
     IResult,
 };
 
@@ -17,8 +16,6 @@ fn main() {
 
 fn part_1(input: &str) -> u32 {
     let (_, result) = parse_all_mul(input).unwrap();
-
-    dbg!(&result);
 
     result.iter().fold(0, |acc, (x, y)| acc + (x * y))
 }
