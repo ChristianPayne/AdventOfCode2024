@@ -1,15 +1,13 @@
 use nom::{
     bytes::complete::tag,
-    character::complete::{self, newline},
-    multi::{many0, separated_list0},
+    character::complete,
+    multi::separated_list0,
     sequence::{separated_pair, tuple},
     IResult,
 };
 
 #[derive(Debug, Clone)]
 struct SortRule(i32, i32);
-
-type Update = Vec<i32>;
 
 fn main() {
     let input = include_str!("./input.txt");
@@ -70,7 +68,7 @@ fn parse_sort_rule(input: &str) -> IResult<&str, SortRule> {
     Ok((input, SortRule(x, y)))
 }
 
-fn parse_updates(input: &str) -> IResult<&str, Update> {
+fn parse_updates(input: &str) -> IResult<&str, Vec<i32>> {
     separated_list0(tag(","), complete::i32)(input)
 }
 

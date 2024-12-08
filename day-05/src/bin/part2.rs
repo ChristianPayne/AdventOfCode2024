@@ -1,15 +1,13 @@
 use nom::{
     bytes::complete::tag,
-    character::complete::{self, newline},
-    multi::{many0, separated_list0},
+    character::complete,
+    multi::separated_list0,
     sequence::{separated_pair, tuple},
     IResult,
 };
 
 #[derive(Debug, Clone)]
 struct SortRule(i32, i32);
-
-type Update = Vec<i32>;
 
 fn main() {
     let input = include_str!("./input.txt");
@@ -24,7 +22,6 @@ fn part_2(input: &str) -> i32 {
         separated_list0(tag("\n"), parse_updates),
     ))(input)
     .expect("Failed to parse input.");
-    // dbg!(&rules);
 
     // Make sure each update is in order and keep a sum of the middle pages.
     updates.into_iter().fold(0, |acc, mut update| {
@@ -55,12 +52,12 @@ fn part_2(input: &str) -> i32 {
     })
 }
 
-fn sort_update(mut update: Vec<i32>, rules: &Vec<SortRule>) -> Vec<i32> {
+fn sort_update(mut update: Vec<i32>, rules: &[SortRule]) -> Vec<i32> {
     println!("Starting sort on {:?}", update);
 
     loop {
         let all_rules_passed = rules.iter().all(|rule| {
-            for rule in rules {
+            if !check_rule_passed(&update, rule) {
                 let rule_0_index = update
                     .iter()
                     .position(|x| *x == rule.0)
@@ -69,11 +66,8 @@ fn sort_update(mut update: Vec<i32>, rules: &Vec<SortRule>) -> Vec<i32> {
                     .iter()
                     .position(|x| *x == rule.1)
                     .expect("Failed to find index of rule 0");
-
-                if !check_rule_passed(&update, rule) {
-                    update.swap(rule_0_index, rule_1_index);
-                    return false;
-                }
+                update.swap(rule_0_index, rule_1_index);
+                return false;
             }
 
             true
@@ -121,7 +115,7 @@ fn parse_sort_rule(input: &str) -> IResult<&str, SortRule> {
     Ok((input, SortRule(x, y)))
 }
 
-fn parse_updates(input: &str) -> IResult<&str, Update> {
+fn parse_updates(input: &str) -> IResult<&str, Vec<i32>> {
     separated_list0(tag(","), complete::i32)(input)
 }
 
