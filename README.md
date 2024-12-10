@@ -3,6 +3,33 @@
 ## Adding a new workspace
 `cargo new --lib day-00` at the root of the repo and cargo will scaffold a new library.  
 Add a new `bin` folder inside of the `src` folder and put the `part1.rs`, `part2.rs` and `input.txt` files in that.
+
+## Example Structure
+```rs
+fn main() {
+    let input = include_str!("./input.txt");
+    let output = part_1(input);
+    dbg!(output);
+}
+
+fn part_1(input: &str) -> i32 {
+  todo!()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn sample() {
+        let result = part_1(
+            "",
+        );
+        assert_eq!(result, 0);
+    }
+}
+```
+
 ## Running a day
 Make sure to `cd` into the day you want to run.
 ### Testing sample data
